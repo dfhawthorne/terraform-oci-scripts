@@ -56,8 +56,8 @@ resource "oci_core_service_gateway" "Service-gateway" {
 # DHCP Options
 # ------------------------------------------------------------------------------
 
-resource "oci_core_dhcp_options" "DHCP-Options" {
-    vcn_id                      = oci_core_vcn.vcn.id
+resource "oci_core_default_dhcp_options" "DHCP-Options" {
+    manage_default_resource_id  = oci_core_vcn.vcn.default_dhcp_options_id
     compartment_id              = var.compartment_id
     display_name                = "DHCP Options for ${var.vcn_details.name}"
     domain_name_type            = "CUSTOM_DOMAIN"
@@ -82,7 +82,6 @@ resource "oci_core_dhcp_options" "DHCP-Options" {
 resource "oci_core_subnet" "public-subnet" {
     cidr_block                  = var.public_subnet_details.cidr_block
     compartment_id              = var.compartment_id
-    dhcp_options_id             = oci_core_dhcp_options.DHCP-Options.id
     display_name                = "public subnet-${var.vcn_details.name}"
     dns_label                   = var.public_subnet_details.dns_label
     prohibit_internet_ingress   = "false"
@@ -97,7 +96,6 @@ resource "oci_core_subnet" "public-subnet" {
 resource "oci_core_subnet" "private-subnet" {
     cidr_block                  = var.private_subnet_details.cidr_block
     compartment_id              = var.compartment_id
-    dhcp_options_id             = oci_core_dhcp_options.DHCP-Options.id
     display_name                = "private subnet-${var.vcn_details.name}"
     dns_label                   = var.private_subnet_details.dns_label
     prohibit_internet_ingress   = "true"
@@ -129,8 +127,9 @@ resource "oci_core_route_table" "route-table-for-private-subnet" {
     vcn_id                      = oci_core_vcn.vcn.id
 }
 
-resource "oci_core_route_table" "default-route-table" {
+resource "oci_core_default_route_table" "default-route-table" {
     compartment_id              = var.compartment_id
+    manage_default_resource_id  = oci_core_vcn.vcn.default_route_table_id
     display_name                = "default route table for ${var.vcn_details.name}"
     route_rules {
         destination             = "0.0.0.0/0"
@@ -145,7 +144,6 @@ resource "oci_core_route_table" "default-route-table" {
             network_entity_id   = route_rules.value.network_entity_id
         }
     }
-    vcn_id                      = oci_core_vcn.vcn.id
 }
 
 # ------------------------------------------------------------------------------
