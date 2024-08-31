@@ -1,6 +1,7 @@
 # ------------------------------------------------------------------------------
-# OCI CNP Lab 01:
-# Create and Configure a Virtual Cloud Network (VCN)
+# OCI CAA Lab 3-1: 
+# Networking - Virtual Cloud Network: Create and Configure a Virtual Cloud
+# Network (VCN)
 # ------------------------------------------------------------------------------
 
 terraform {
