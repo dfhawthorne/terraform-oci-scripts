@@ -1,0 +1,1 @@
+/home/douglas/git-repositories/terraform-oci-scripts/oci-2024-certified-architect-associate/common/variables.tf
