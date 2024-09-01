@@ -23,7 +23,7 @@ output "sgw_id" {
 }
 
 output "dhcp_id" {
-    value           = oci_core_dhcp_options.DHCP-Options.id
+    value           = oci_core_default_dhcp_options.DHCP-Options.id
     description     = "OCID of DHCP Options"
 }
 
@@ -43,7 +43,7 @@ output "priv_rt_id" {
 }
 
 output "dflt_rt_id" {
-    value           = oci_core_route_table.default-route-table.id
+    value           = oci_core_default_route_table.default-route-table.id
     description     = "OCID of default route table"
 }
 

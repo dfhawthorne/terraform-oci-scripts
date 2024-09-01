@@ -86,10 +86,6 @@ resource "oci_core_subnet" "public-subnet" {
     dns_label                   = var.public_subnet_details.dns_label
     prohibit_internet_ingress   = "false"
     prohibit_public_ip_on_vnic  = "false"
-    route_table_id              = oci_core_route_table.default-route-table.id
-    security_list_ids           = [
-        oci_core_vcn.vcn.default_security_list_id,
-    ]
     vcn_id                      = oci_core_vcn.vcn.id
 }
 
