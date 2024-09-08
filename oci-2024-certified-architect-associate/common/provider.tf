@@ -15,7 +15,6 @@ terraform {
 # ------------------------------------------------------------------------------
 
 provider "oci" {
-    alias            = "Frankfurt"
     tenancy_ocid     = var.provider_details.tenancy_ocid
     user_ocid        = var.provider_details.user_ocid
     fingerprint      = var.provider_details.fingerprint
@@ -23,12 +22,3 @@ provider "oci" {
     region           = var.provider_details.region
 }
 
-
-provider "oci" {
-    alias            = "Phoenix"
-    tenancy_ocid     = var.provider_details.tenancy_ocid
-    user_ocid        = var.provider_details.user_ocid
-    fingerprint      = var.provider_details.fingerprint
-    private_key_path = var.provider_details.private_key_path
-    region           = var.provider_details.region
-}

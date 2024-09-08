@@ -1,0 +1,12 @@
+#cloud-config
+
+runcmd:
+    - sudo iptables -A INPUT -p tcp -m multiport --dports 80,443 -j ACCEPT
+    - sudo yum -y install httpd
+    - sudo systemctl enable httpd.service
+    - sudo systemctl start httpd.service
+    - sudo firewall-offline-cmd --add-service=http
+    - sudo firewall-offline-cmd --add-service=https
+    - sudo systemctl enable firewalld
+    - sudo systemctl start firewalld
+    - echo Hello World! My name is "${ server_name }" | sudo tee /var/www/html/index.html >/dev/null
