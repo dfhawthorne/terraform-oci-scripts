@@ -17,3 +17,14 @@ variable "provider_details" {
     sensitive               = true
     description             = "OCI provider details"
 }
+
+variable "ssh_public_key" {
+    type                    = string
+    sensitive               = true
+    description             = "Public Key for opc access to compute instance"
+}
+
+variable "compute_shape" {
+    type                    = string
+    description             = "Shape for compute instance"
+}

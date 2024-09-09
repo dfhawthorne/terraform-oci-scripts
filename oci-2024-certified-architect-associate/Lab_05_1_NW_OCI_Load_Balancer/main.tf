@@ -10,6 +10,26 @@
 data "oci_core_services" "frankfurt" {
 }
 
+data "oci_identity_availability_domains" "ads" {
+    compartment_id              = var.provider_details.tenancy_ocid
+}
+
+data "oci_core_images" "latest_image" {
+    compartment_id              = var.compartment_id
+    operating_system            = "Oracle Linux"
+    operating_system_version    = "8"
+    shape                       = var.compute_shape
+    sort_by                     = "TIMECREATED"
+    sort_order                  = "DESC"
+}
+
+
+locals {
+    ad1                         = data.oci_identity_availability_domains.ads.availability_domains[0].name
+    ad2                         = data.oci_identity_availability_domains.ads.availability_domains[1].name
+    ol8_image_ocid              = data.oci_core_images.latest_image.images[0].id
+}
+
 # ------------------------------------------------------------------------------
 # Virtual Cloud Network resource block
 # ------------------------------------------------------------------------------
@@ -258,16 +278,16 @@ resource oci_core_default_security_list Default-Security-List-for-FRA-AA-LAB05-V
 
 resource "oci_core_instance" "vm_01" {
     compartment_id              = var.compartment_id
-    availability_domain         = "misp:EU-FRANKFURT-1-AD-1"
+    availability_domain         = local.ad1
     display_name                = "FRA-AA-LAB05-VM-01"
-    shape                       = "VM.Standard.A1.Flex"
+    shape                       = var.compute_shape
     shape_config                {
         ocpus                   = 1
         memory_in_gbs           = 6
     }
     source_details              {
         source_type             = "image"
-        source_id               = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaa2ebpx7hhgkhfarlopt3h6krrhxmw743gwuopg62euwufjelwgsxa"
+        source_id               = local.ol8_image_ocid
     }
     create_vnic_details         {
         subnet_id               = oci_core_subnet.private-subnet-FRA-AA-LAB05-VCN-01.id
@@ -297,16 +317,16 @@ data "cloudinit_config" "vm01_config" {
 
 resource "oci_core_instance" "vm_02" {
     compartment_id              = var.compartment_id
-    availability_domain         = "misp:EU-FRANKFURT-1-AD-2"
+    availability_domain         = local.ad2
     display_name                = "FRA-AA-LAB05-VM-02"
-    shape                       = "VM.Standard.A1.Flex"
+    shape                       = var.compute_shape
     shape_config                {
         ocpus                   = 1
         memory_in_gbs           = 6
     }
     source_details              {
         source_type             = "image"
-        source_id               = "ocid1.image.oc1.eu-frankfurt-1.aaaaaaaa2ebpx7hhgkhfarlopt3h6krrhxmw743gwuopg62euwufjelwgsxa"
+        source_id               = local.ol8_image_ocid
     }
     create_vnic_details         {
         subnet_id               = oci_core_subnet.public-subnet-FRA-AA-LAB05-VCN-01.id
@@ -315,7 +335,7 @@ resource "oci_core_instance" "vm_02" {
     }
     metadata                    = {
         user_data               = data.cloudinit_config.vm02_config.rendered
-        ssh_authorized_keys     = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCIy4S9IY6KWq21kMVOZzljJ1sZp8wtOF8tcHpC3sdvXUefQM3A2eZdwn+Yb1CDirqRNcdHU8SswjABF4pUUlvRTcTietPVyxV3fgiwbm8lS56DhH89hhfj+ymkFZdH6Mlw3Q+Q1dNqjmiwyuRBwPqQFvYqfXGfrTvZtxrSYE3YxLhfchRdJWzJEP1mOcCW81biTbHkH9u27R3o5GDHSpeFvhis7hNHDt0ayb77jkulLKHFVImoiph9pLkCBMfQgpCR+MkUxyyKB0KhKj7rLtZpaGUkbb+GCMhtNAdsv1YuvrDKx4/oyJtdYw5RQRZNVcW9e+4JTOob4HL/utPB9uPz17b8e/zqj+yzQz1Mf2NthPEG22os4BOqqi+7QuirhMEj1xzXePTpd6FWYZyJB4tk/J5KIwKtQhOSs+4MJz945+GFBD21YoqaYv9WUB6ZL7el+HwcqFyaPJUm6i4Nkdx3DHv9pjaF6DcRKzcKroCoEW57uwBZej3sNhEHBE+VI1M= mylearn@coogee"
+        ssh_authorized_keys     = var.ssh_public_key
     }
 }
 
