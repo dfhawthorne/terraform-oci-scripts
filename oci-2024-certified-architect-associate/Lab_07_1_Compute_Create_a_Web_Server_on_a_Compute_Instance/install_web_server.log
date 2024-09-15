@@ -1,0 +1,85 @@
+install_web_server.sh                         100%  592     1.9KB/s   00:00    
+Last metadata expiration check: 1:15:46 ago on Sun 15 Sep 2024 04:49:21 GMT.
+Dependencies resolved.
+======================================================================================================
+ Package              Arch     Version                                        Repository          Size
+======================================================================================================
+Installing:
+ httpd                aarch64  2.4.37-65.0.1.module+el8.10.0+90383+734f7ffb.2 ol8_appstream      1.4 M
+Installing dependencies:
+ apr                  aarch64  1.6.3-12.el8                                   ol8_appstream      123 k
+ apr-util             aarch64  1.6.1-9.el8                                    ol8_appstream      105 k
+ httpd-filesystem     noarch   2.4.37-65.0.1.module+el8.10.0+90383+734f7ffb.2 ol8_appstream       44 k
+ httpd-tools          aarch64  2.4.37-65.0.1.module+el8.10.0+90383+734f7ffb.2 ol8_appstream      110 k
+ mod_http2            aarch64  1.15.7-10.module+el8.10.0+90327+96b8ea28       ol8_appstream      146 k
+ oracle-logos-httpd   noarch   84.5-1.0.2.el8                                 ol8_baseos_latest   28 k
+Installing weak dependencies:
+ apr-util-bdb         aarch64  1.6.1-9.el8                                    ol8_appstream       25 k
+ apr-util-openssl     aarch64  1.6.1-9.el8                                    ol8_appstream       27 k
+Enabling module streams:
+ httpd                         2.4                                                                    
+
+Transaction Summary
+======================================================================================================
+Install  9 Packages
+
+Total download size: 2.0 M
+Installed size: 10 M
+Downloading Packages:
+(1/9): oracle-logos-httpd-84.5-1.0.2.el8.noarch 539 kB/s |  28 kB     00:00    
+(2/9): apr-util-1.6.1-9.el8.aarch64.rpm         1.7 MB/s | 105 kB     00:00    
+(3/9): apr-1.6.3-12.el8.aarch64.rpm             1.9 MB/s | 123 kB     00:00    
+(4/9): apr-util-bdb-1.6.1-9.el8.aarch64.rpm     1.7 MB/s |  25 kB     00:00    
+(5/9): apr-util-openssl-1.6.1-9.el8.aarch64.rpm 2.0 MB/s |  27 kB     00:00    
+(6/9): httpd-filesystem-2.4.37-65.0.1.module+el 535 kB/s |  44 kB     00:00    
+(7/9): mod_http2-1.15.7-10.module+el8.10.0+9032 2.1 MB/s | 146 kB     00:00    
+(8/9): httpd-tools-2.4.37-65.0.1.module+el8.10. 508 kB/s | 110 kB     00:00    
+(9/9): httpd-2.4.37-65.0.1.module+el8.10.0+9038 5.8 MB/s | 1.4 MB     00:00    
+--------------------------------------------------------------------------------
+Total                                           6.3 MB/s | 2.0 MB     00:00     
+Running transaction check
+Transaction check succeeded.
+Running transaction test
+Transaction test succeeded.
+Running transaction
+  Preparing        :                                                        1/1 
+  Installing       : apr-1.6.3-12.el8.aarch64                               1/9 
+  Running scriptlet: apr-1.6.3-12.el8.aarch64                               1/9 
+  Installing       : apr-util-bdb-1.6.1-9.el8.aarch64                       2/9 
+  Installing       : apr-util-openssl-1.6.1-9.el8.aarch64                   3/9 
+  Installing       : apr-util-1.6.1-9.el8.aarch64                           4/9 
+  Running scriptlet: apr-util-1.6.1-9.el8.aarch64                           4/9 
+  Installing       : httpd-tools-2.4.37-65.0.1.module+el8.10.0+90383+734f   5/9 
+  Running scriptlet: httpd-filesystem-2.4.37-65.0.1.module+el8.10.0+90383   6/9 
+  Installing       : httpd-filesystem-2.4.37-65.0.1.module+el8.10.0+90383   6/9 
+  Installing       : oracle-logos-httpd-84.5-1.0.2.el8.noarch               7/9 
+  Installing       : mod_http2-1.15.7-10.module+el8.10.0+90327+96b8ea28.a   8/9 
+  Installing       : httpd-2.4.37-65.0.1.module+el8.10.0+90383+734f7ffb.2   9/9 
+  Running scriptlet: httpd-2.4.37-65.0.1.module+el8.10.0+90383+734f7ffb.2   9/9 
+  Verifying        : oracle-logos-httpd-84.5-1.0.2.el8.noarch               1/9 
+  Verifying        : apr-1.6.3-12.el8.aarch64                               2/9 
+  Verifying        : apr-util-1.6.1-9.el8.aarch64                           3/9 
+  Verifying        : apr-util-bdb-1.6.1-9.el8.aarch64                       4/9 
+  Verifying        : apr-util-openssl-1.6.1-9.el8.aarch64                   5/9 
+  Verifying        : httpd-2.4.37-65.0.1.module+el8.10.0+90383+734f7ffb.2   6/9 
+  Verifying        : httpd-filesystem-2.4.37-65.0.1.module+el8.10.0+90383   7/9 
+  Verifying        : httpd-tools-2.4.37-65.0.1.module+el8.10.0+90383+734f   8/9 
+  Verifying        : mod_http2-1.15.7-10.module+el8.10.0+90327+96b8ea28.a   9/9 
+
+Installed:
+  apr-1.6.3-12.el8.aarch64                                                      
+  apr-util-1.6.1-9.el8.aarch64                                                  
+  apr-util-bdb-1.6.1-9.el8.aarch64                                              
+  apr-util-openssl-1.6.1-9.el8.aarch64                                          
+  httpd-2.4.37-65.0.1.module+el8.10.0+90383+734f7ffb.2.aarch64                  
+  httpd-filesystem-2.4.37-65.0.1.module+el8.10.0+90383+734f7ffb.2.noarch        
+  httpd-tools-2.4.37-65.0.1.module+el8.10.0+90383+734f7ffb.2.aarch64            
+  mod_http2-1.15.7-10.module+el8.10.0+90327+96b8ea28.aarch64                    
+  oracle-logos-httpd-84.5-1.0.2.el8.noarch                                      
+
+Complete!
+Created symlink /etc/systemd/system/multi-user.target.wants/httpd.service → /usr/lib/systemd/system/httpd.service.
+Syntax OK
+success
+success
+
