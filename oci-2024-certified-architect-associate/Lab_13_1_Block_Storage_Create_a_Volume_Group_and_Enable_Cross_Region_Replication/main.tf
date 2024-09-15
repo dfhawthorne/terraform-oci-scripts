@@ -66,3 +66,19 @@ resource "oci_core_volume_group" "FRA-AA-LAB13-1-VG-01" {
 		display_name            = "LHR-AA-LAB13-1-VGR-01"
 	}
 }
+
+# ------------------------------------------------------------------------------
+# Activate Volume Group Replica in London
+# ------------------------------------------------------------------------------
+
+resource "oci_core_volume_group" "LHR-AA-LAB13-1-VG-01" {
+    provider                    = oci.london
+    availability_domain         = local.london_ad1
+    compartment_id              = var.compartment_id
+    display_name                = "LHR-AA-LAB13-1-VG-01"
+    source_details {
+        type                    = "volumeGroupReplicaId"
+        volume_group_replica_id = oci_core_volume_group.FRA-AA-LAB13-1-VG-01.volume_group_replicas[0].volume_group_replica_id
+    }
+}
+
