@@ -1,0 +1,32 @@
+coogee% ssh -i .ssh/id_rsa opc@$(terraform output -raw vm_02_ip)
+Activate the web console with: systemctl enable --now cockpit.socket
+
+Last login: Sun Sep 15 18:30:22 2024 from 1.129.104.236
+[opc@fra-aa-lab15-1-vm-02 ~]$ sudo yum install -y nfs-utils
+Last metadata expiration check: 2:14:39 ago on Mon 16 Sep 2024 10:23:44 GMT.
+Package nfs-utils-1:2.3.3-59.0.1.el8.aarch64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+[opc@fra-aa-lab15-1-vm-02 ~]$ sudo mkdir -p /mnt/FRA-AA-LAB15-1-EP-01
+[opc@fra-aa-lab15-1-vm-02 ~]$ sudo mount 10.0.2.131:/FRA-AA-LAB15-1-EP-01 /mnt/FRA-AA-LAB15-1-EP-01
+[opc@fra-aa-lab15-1-vm-02 ~]$ df -h
+Filesystem                        Size  Used Avail Use% Mounted on
+devtmpfs                          2.8G     0  2.8G   0% /dev
+tmpfs                             2.8G     0  2.8G   0% /dev/shm
+tmpfs                             2.8G   34M  2.8G   2% /run
+tmpfs                             2.8G     0  2.8G   0% /sys/fs/cgroup
+/dev/mapper/ocivolume-root         36G   11G   25G  31% /
+/dev/mapper/ocivolume-oled         10G  265M  9.7G   3% /var/oled
+/dev/sda2                         924M  327M  598M  36% /boot
+/dev/sda1                         100M  7.2M   93M   8% /boot/efi
+tmpfs                             565M     0  565M   0% /run/user/986
+tmpfs                             565M     0  565M   0% /run/user/1000
+10.0.2.131:/FRA-AA-LAB15-1-EP-01  8.0E     0  8.0E   0% /mnt/FRA-AA-LAB15-1-EP-01
+[opc@fra-aa-lab15-1-vm-02 ~]$ sudo touch /mnt/FRA-AA-LAB15-1-EP-01/helloworld
+touch: setting times of '/mnt/FRA-AA-LAB15-1-EP-01/helloworld': Read-only file system
+[opc@fra-aa-lab15-1-vm-02 ~]$ cd /mnt/FRA-AA-LAB15-1-EP-01
+[opc@fra-aa-lab15-1-vm-02 FRA-AA-LAB15-1-EP-01]$ ls
+helloworld
+[opc@fra-aa-lab15-1-vm-02 FRA-AA-LAB15-1-EP-01]$ 
+
