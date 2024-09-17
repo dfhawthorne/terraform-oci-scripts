@@ -1,0 +1,48 @@
+coogee% mkdir .ssh
+coogee% chmod 700 .ssh
+coogee% echo .ssh >>.gitignore
+coogee% touch .ssh/id_rsa
+coogee% chmod 600 .ssh/id_rsa
+coogee% terraform output
+mount_target_ip_address = "10.0.2.80"
+private_key_pem = <sensitive>
+vm_01_ip = "130.61.215.211"
+coogee% sed -ne '/-----BEGIN RSA PRIVATE KEY-----/,/-----END RSA PRIVATE KEY-----/p' <(terraform output private_key_pem) >.ssh/id_rsa
+coogee% ssh -i .ssh/id_rsa opc@$(terraform output -raw vm_01_ip)
+The authenticity of host '130.61.215.211 (130.61.215.211)' can't be established.
+ED25519 key fingerprint is SHA256:yoOOXz4f/lluoTRrfKQio4LWcEizHaDTfRoGenHXqXo.
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '130.61.215.211' (ED25519) to the list of known hosts.
+Activate the web console with: systemctl enable --now cockpit.socket
+
+[opc@fra-aa-lab14-1-vm-01 ~]$ sudo yum install -y nfs-utils
+Last metadata expiration check: 0:35:03 ago on Tue 17 Sep 2024 00:47:53 GMT.
+Package nfs-utils-1:2.3.3-59.0.1.el8.aarch64 is already installed.
+Dependencies resolved.
+Nothing to do.
+Complete!
+[opc@fra-aa-lab14-1-vm-01 ~]$ sudo mkdir -p /mnt/FRA-AA-LAB14-1-EP-01
+[opc@fra-aa-lab14-1-vm-01 ~]$ sudo mount 10.0.2.80:/FRA-AA-LAB14-1-EP-01 /mnt/FRA-AA-LAB14-1-EP-01
+[opc@fra-aa-lab14-1-vm-01 ~]$ df -h
+Filesystem                       Size  Used Avail Use% Mounted on
+devtmpfs                         2.8G     0  2.8G   0% /dev
+tmpfs                            2.8G     0  2.8G   0% /dev/shm
+tmpfs                            2.8G   18M  2.8G   1% /run
+tmpfs                            2.8G     0  2.8G   0% /sys/fs/cgroup
+/dev/mapper/ocivolume-root        36G   11G   25G  31% /
+/dev/mapper/ocivolume-oled        10G  226M  9.7G   3% /var/oled
+/dev/sda2                        924M  327M  598M  36% /boot
+/dev/sda1                        100M  7.2M   93M   8% /boot/efi
+tmpfs                            565M     0  565M   0% /run/user/986
+tmpfs                            565M     0  565M   0% /run/user/1000
+10.0.2.80:/FRA-AA-LAB14-1-EP-01  8.0E     0  8.0E   0% /mnt/FRA-AA-LAB14-1-EP-01
+[opc@fra-aa-lab14-1-vm-01 ~]$ sudo touch /mnt/FRA-AA-LAB14-1-EP-01/helloworld
+[opc@fra-aa-lab14-1-vm-01 ~]$ ls -l /mnt/FRA-AA-LAB14-1-EP-01
+total 0
+-rw-r--r--. 1 root root 0 Sep 17 01:25 helloworld
+[opc@fra-aa-lab14-1-vm-01 ~]$ exit
+logout
+Connection to 130.61.215.211 closed.
+coogee% 
+
