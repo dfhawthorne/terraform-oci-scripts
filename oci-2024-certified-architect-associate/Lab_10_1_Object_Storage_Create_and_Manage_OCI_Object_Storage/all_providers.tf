@@ -1,0 +1,1 @@
+../common/all_providers.tf
